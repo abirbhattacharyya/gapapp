@@ -64,7 +64,7 @@
             <div>
                 &copy; 2010 DealKat
                 <%=
-                  if User.first.facebook_user?
+                  if User.last.facebook_user?
                     "#{link_to("#{User.first.screen_name} ", "http://www.facebook.com/profile.php?id=".concat(User.first.fb_uid), :target => "_new")} "
                   else
                     "@#{link_to("#{User.first.screen_name} ", "http://www.twitter.com/".concat(User.first.screen_name), :target => "_new")} "

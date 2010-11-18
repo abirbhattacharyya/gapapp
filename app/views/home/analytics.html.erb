@@ -19,15 +19,15 @@
 <% end %>
 
   <div class="paginator w650px">
-      <% if @page.to_i != @post_pages %>
-          <% if(@page.to_i <= 1)%>
+      <% if params[:page].to_i != @post_pages %>
+          <% if(params[:page].to_i <= 1)%>
               <%= link_to("Next #{@per_page}", "javascript:void();", :class => "button next", :onclick => "var f = document.forms['submit_form'];$('page').value=2;f.submit();return false;") %>
           <% else %>
-              <%= link_to("Prev #{@per_page}", "javascript:void();", :class => "button prev", :onclick => "var f = document.forms['submit_form'];$('page').value=#{@page.to_i-1};f.submit();return false;") %>
-              <%= link_to("Next #{@per_page}", "javascript:void();", :class => "button next", :onclick => "var f = document.forms['submit_form'];$('page').value=#{@page.to_i+1};f.submit();return false;") %>
+              <%= link_to("Prev #{@per_page}", "javascript:void();", :class => "button prev", :onclick => "var f = document.forms['submit_form'];$('page').value=#{params[:page].to_i-1};f.submit();return false;") %>
+              <%= link_to("Next #{@per_page}", "javascript:void();", :class => "button next", :onclick => "var f = document.forms['submit_form'];$('page').value=#{params[:page].to_i+1};f.submit();return false;") %>
           <% end %>
-      <% elsif @page.to_i > 1 %>
-          <%= link_to("Prev #{@per_page}", "javascript:void();", :class => "button prev", :onclick => "var f = document.forms['submit_form'];$('page').value=#{@page.to_i-1};f.submit();return false;") %>
+      <% elsif params[:page].to_i > 1 %>
+          <%= link_to("Prev #{@per_page}", "javascript:void();", :class => "button prev", :onclick => "var f = document.forms['submit_form'];$('page').value=#{params[:page].to_i-1};f.submit();return false;") %>
       <% end -%>
   </div>
 

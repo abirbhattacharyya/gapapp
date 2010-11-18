@@ -58,7 +58,7 @@ class HomeController < ApplicationController
     @notifications.sort!{|n1, n2| n2[1] <=> n1[1]}
   end
 
-  def analytics
+ def analytics
     if request.post?
       @page = params[:page].to_i
     else
@@ -123,6 +123,7 @@ class HomeController < ApplicationController
         @chart_data1 = [["Yesterday", @offer_yesterday.total.to_i], ["Today", @offer_today.total.to_i]]
     end
   end
+
 
   def my_wardrobes
     if request.post?

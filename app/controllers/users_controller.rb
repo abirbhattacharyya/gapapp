@@ -14,10 +14,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def login
-    redirect_to root_path
-  end
-
   def create
 #    @user = User.last
 #    if @user
