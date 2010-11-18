@@ -73,5 +73,4 @@ Rails::Initializer.run do |config|
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 end
-GOOGLE_APPLICATION_ID = "ABQIAAAA4gRupQYhwTH4GnkUxYYb5xRKuIgsmbqgKKc9P0BAkMdv2TmcBxSqbWDttZrOVXMPwO_7b09ryUJzLA"
-ActionMailer::Base.smtp_settings = {:address => "smtp.gmail.com",:port => 587,:authentication => :plain,:user_name => "testing.dealkat@gmail.com",:password => "princessthecat"}
+
