@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  wardrobe_id: 1
+  start_date: 2010-10-07
+
+two:
+  wardrobe_id: 1
+  start_date: 2010-10-07

@@ -1,0 +1,11 @@
+<% payment = accept_letter %>
+<b>Gap Say Your Price Wardrobe Voucher</b>
+
+For: <%= payment.email %>
+@<%= payment.screen_name %>
+
+Voucher #=1000<%= payment.id %>
+<%= payment.offer.product_name %>
+
+Total Price=$<%= number_with_delimiter(payment.offer.combination.total_reg_price.ceil) %>;
+You Paid=$<%= number_with_delimiter(payment.offer.price.ceil) %>;

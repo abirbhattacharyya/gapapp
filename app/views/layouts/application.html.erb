@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="description" content="">
+
+    <link rel="icon"  type="image/png" href="/images/favicon.ico" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Dealkat</title>
+    <%= stylesheet_link_tag "reset", "global", "notification", :cache => "main" %>
+    <%= javascript_include_tag "application", "global", "prototype", "effects" %>
+    <%= javascript_include_tag "jquery-1.4.2", "jquery.bar" %>
+    <%= javascript_include_tag "jcarousellite_1.0.1c4" %>
+
+    <% javascript_tag do %>
+          jQuery.noConflict();
+          jQuery(function() {
+                jQuery(".newsticker-jcarousellite").jCarouselLite({
+                btnPlay: ".play",
+                btnPause: ".pause",
+                vertical: true,
+                hoverPause:true,
+                stop: false,
+                visible: 3,
+                auto:800,
+                speed:1100
+                });
+          });
+    <% end %>
+
+    <%= include_visualization_api %>
+    <%= yield :head %>
+  </head>
+
+  <body>
+    <%= fb_connect_javascript_tag %>
+    <%= init_fb_connect "XFBML"%>
+
+    <%= content_tag(:div, nil, :id => "notification", :class => "message-notification") %>
+    <div id="layout">
+        <div id="header">
+            <a class="logo" href="/">GAP</a>
+            <ul>
+                <%= content_tag(:li, link_to('Home', root_path)) if request.path != root_path %>
+                <% if logged_in? %>
+                    <%= content_tag(:li, link_to("Twitter Preferences", preferences_path), :class => ([preferences_path].include? request.path) ? "current" : nil) if current_user.preference %>
+                    <%= content_tag(:li, link_to("My Profile", profile_path), :class => ([profile_path].include? request.path) ? "current" : nil) if current_user.profile %>
+                <% else %>
+                    <%= content_tag(:li, link_to("Say Your Price", say_your_price_path), :class => ([say_your_price_path].include? request.path) ? "current" : nil) %>
+                    <%= content_tag(:li, link_to("Wardrobes", wardrobes_path), :class => ([wardrobes_path].include? request.path) ? "current" : nil) %>
+                    <%= content_tag(:li, link_to("Winners", winners_path), :class => ([winners_path].include? request.path) ? "current" : nil) %>
+                <% end %>
+            </ul>
+        </div><!-- #header -->
+
+        <% content_tag :div, :id => "content" do %>
+            <%= @content_for_layout %>
+        <% end %>
+
+        <div id="footer">
+            <div>
+                &copy; 2010 DealKat
+                <%=
+                  if User.first.facebook_user?
+                    "#{link_to("#{User.first.screen_name} ", "http://www.facebook.com/profile.php?id=".concat(User.first.fb_uid), :target => "_new")} "
+                  else
+                    "@#{link_to("#{User.first.screen_name} ", "http://www.twitter.com/".concat(User.first.screen_name), :target => "_new")} "
+                  end
+                %>
+                <%= "<b>#{number_to_phone(Profile.first.phone, :delimiter => "-")}</b>" if Profile.first %>
+            </div>
+
+            <address>
+                <%= "#{Profile.first.name}<br />" if Profile.first %>
+                <%= "#{Profile.first.address1}<br />" if Profile.first %>
+                <%= "#{Profile.first.city}, #{Profile.first.state} #{Profile.first.zip}" if Profile.first %>
+            </address>
+            <% content_tag :ul do %>
+                <%= content_tag(:li, "#{(current_user.facebook_user?) ? fb_logout_link("Sign Out", logout_path, :return => true) : link_to('Sign Out', logout_path)}") if logged_in? %>
+                <%= content_tag(:li, link_to("FAQ", faqs_path), :class => ([faqs_path].include? request.path) ? "current" : nil) %>
+            <% end %>
+        </div><!-- #footer -->
+    </div><!-- #layout -->
+
+    <% if flash[:error] or flash[:notice] %>
+      <% javascript_tag do %>
+          <% if flash[:error] %>
+            showNotification("<%= flash.now[:error] %>", 'error', 8000);
+          <% elsif flash[:notice] %>
+            showNotification("<%= flash.now[:notice] %>", 'notice', 8000);
+          <% end %>
+          <% flash.discard %>
+      <% end %>
+    <% end %>
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-15390967-2']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+  </body>
+</html>

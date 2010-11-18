@@ -1,0 +1,19 @@
+OrderedErrorMessagesFor
+=======================
+
+This plugin patches ActiveRecord::Errors and ActionView::Base so that
+the output of error_messages_for() can be ordered. In the core, it 
+is not ordered, and the display sequence is determined through iteration 
+of hash keys.
+
+
+Example
+=======
+
+error_messages_for(:user, :order=>[:name,:password,:phone_number])
+error_messages_for(:user, :order=>{:user=>[:name,:password,:phone_number]})
+
+
+Copyright (c) 2008 John B Nelson <john.b.nelson@chasingsparks.com>
+Released under the MIT license
+

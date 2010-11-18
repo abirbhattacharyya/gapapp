@@ -1,0 +1,32 @@
+  <% form_tag wardrobes_path, :id => "wardrobe_form" do %>
+    <%= hidden_field_tag(:gender, @gender) %>
+    <%= hidden_field_tag(:page, @page) %>
+    <p class="ctrl actions">
+        <%= link_to(content_tag(:span, "#{"See " if @gender.downcase!="men"}Men's Wardrobes", :class => "small-text"), "javascript:void();", :class => "button green#{" disabled" if @gender.downcase=="men"}", :onclick => "var f = document.forms['wardrobe_form'];$('gender').value='men';f.submit();return false;") %>
+        <%= link_to(content_tag(:span, "#{"See " if @gender.downcase!="women"}Women's Wardrobes", :class => "small-text"), "javascript:void();", :class => "button pink#{" disabled" if @gender.downcase=="women"}", :onclick => "var f = document.forms['wardrobe_form'];$('gender').value='women';f.submit();return false;") %>
+    </p>
+  <% end %>
+    
+<% if @combinations and @combinations.size > 0 %>
+  <% for combination in @combinations %>
+    <div class="w540">
+      <%= render :partial => "partials/capsule", :object => combination %>
+    </div>
+  <% end %>
+
+  <div class="paginator w650px">
+      <% if @page.to_i != @post_pages %>
+          <% if(@page.to_i <= 1)%>
+              <%= link_to("Next #{@per_page}", "javascript:void();", :class => "button next", :onclick => "var f = document.forms['wardrobe_form'];$('page').value=2;f.submit();return false;") %>
+          <% else %>
+              <%= link_to("Prev #{@per_page}", "javascript:void();", :class => "button prev", :onclick => "var f = document.forms['wardrobe_form'];$('page').value=#{@page.to_i-1};f.submit();return false;") %>
+              <%= link_to("Next #{@per_page}", "javascript:void();", :class => "button next", :onclick => "var f = document.forms['wardrobe_form'];$('page').value=#{@page.to_i+1};f.submit();return false;") %>
+          <% end %>
+      <% elsif @page.to_i > 1 %>
+          <%= link_to("Prev #{@per_page}", "javascript:void();", :class => "button prev", :onclick => "var f = document.forms['wardrobe_form'];$('page').value=#{@page.to_i-1};f.submit();return false;") %>
+      <% end -%>
+  </div>
+
+<% else %>
+  <div style="height: 200px;"></div>
+<% end %>

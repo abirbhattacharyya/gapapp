@@ -1,0 +1,20 @@
+<h1><%= (current_user.preference ? "Here is what you told us, Edit your preferences" : "Tell us your Twitter prefrences") %></h1>
+
+<%#= error_messages_for(:preference, :message => "", :header_message => "")%>
+<% form_for :preference, :url => preferences_path do |f| %>
+    <p class="ctrl">
+        <label>How many daily updates?</label>
+        <%= f.select :daily_updates, (1...11).collect{|i| [i,i]}, {}, :class => "w160px" %>
+    </p>
+    <p class="ctrl radio-group">
+        <label>Send Tweets on these actions & events</label><br />
+        <%= f.check_box :daily_anouncement %> <label>Daily Announcements</label><br />
+        <%= f.check_box :price_change %> <label>Price Changes</label><br />
+        <%= f.check_box :random_user %> <label>Random users negotiating</label><br />
+        <%= f.check_box :completed_negotiations %> <label>A completed negotiation</label><br />
+    </p>
+    <span class="button green" >
+        <%= submit_tag 'GO!'%>
+    </span>
+    <%= link_to("Cancel", root_path, :class => "alter") if(current_user.preference) %>
+<% end %>

@@ -1,0 +1,23 @@
+<h1><%= (@products ? "Here is what you told us, Edit your prices" : "Upload a CSV with your product catalog + financial data") %></h1>
+<p>Make sure your CSV file contains the columns listed below. Click on the sample file to see an example.</p>
+<ul class="list">
+  <li>Department</li>
+  <li>Gender</li>
+  <li>Proportion</li>
+  <li>Product Name</li>
+  <li>Inventory#</li>
+  <li>Product Picture URL</li>
+  <li>Regular Price</li>
+  <li>Minimum Price</li>
+</ul>
+
+<% form_tag product_catalog_path, :multipart => true do %>
+  <p class="ctrl">
+      <%= file_field_tag 'uploaded_file', {:style => "vertical-align: bottom;", :size => 20} %>
+      <%= link_to("Sample file", "/sample.jpg", :target => "_new") %>
+  </p>
+  <p class="ctrl actions">
+      <span class="button green"><%= submit_tag "Go!" %></span>
+      <%= link_to("Cancel", root_path, :class => "alter") if @products and @products.size > 0 %>
+  </p>
+<% end %>

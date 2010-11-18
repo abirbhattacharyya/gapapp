@@ -1,0 +1,8 @@
+<%= calendar_date_select_includes "default" %>
+<h1>Look at these cool wardrobes matching your parameters</h1>
+
+<%= render :partial => "partials/capsule", :object => @wardrobe.combinations.last %>
+
+<% javascript_tag do %>
+  $('calendar').hide();
+<% end %>

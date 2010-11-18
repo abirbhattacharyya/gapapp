@@ -1,0 +1,34 @@
+<%= render :partial => "/partials/my_dashboard" %>
+<h1>Look at your cool analytics! (<%= @page %> of <%= @size %>)</h1>
+  <div class="sbox w640px">
+      <div class="sinner">
+          <% visualization "chart_id1", "ColumnChart", :colors => @colors, :is3D => true, :width => 635, :height => 300, :legend => "bottom", :titleX => @titleX, :titleY => @titleY, :title => @title do |chart| %>
+              <% chart.string @titleX %>
+              <% chart.number @titleY %>
+              <% chart.add_rows(@chart_data1) %>
+          <% end %>
+      </div><!-- .sinner -->
+      <div class="stl"></div><div class="str"></div>
+      <div class="sbl"></div><div class="sbr"></div>
+  </div><!-- .column50prc -->
+
+<% if @chart_data1 and @chart_data1.size > 0 %>
+  <% form_tag analytics_path, :id => "submit_form", :style => "display:none;" do %>
+    <%= hidden_field_tag(:page, @page) %>
+  <% end %>
+<% end %>
+
+  <div class="paginator w650px">
+      <% if @page.to_i != @post_pages %>
+          <% if(@page.to_i <= 1)%>
+              <%= link_to("Next #{@per_page}", "javascript:void();", :class => "button next", :onclick => "var f = document.forms['submit_form'];$('page').value=2;f.submit();return false;") %>
+          <% else %>
+              <%= link_to("Prev #{@per_page}", "javascript:void();", :class => "button prev", :onclick => "var f = document.forms['submit_form'];$('page').value=#{@page.to_i-1};f.submit();return false;") %>
+              <%= link_to("Next #{@per_page}", "javascript:void();", :class => "button next", :onclick => "var f = document.forms['submit_form'];$('page').value=#{@page.to_i+1};f.submit();return false;") %>
+          <% end %>
+      <% elsif @page.to_i > 1 %>
+          <%= link_to("Prev #{@per_page}", "javascript:void();", :class => "button prev", :onclick => "var f = document.forms['submit_form'];$('page').value=#{@page.to_i-1};f.submit();return false;") %>
+      <% end -%>
+  </div>
+
+<%= render_visualizations %>

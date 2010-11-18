@@ -1,0 +1,46 @@
+<%= content_tag(:h1, (current_user.profile ? "Here is what you told us, Edit your profile" : "Tell us your business profile")) %>
+
+<%#= error_messages_for(:profile, :order => [:name, :web_url, :address1, :address2, :city, :state, :zip, :phone, :email, :twitter_id], :message => "", :header_message => "")%>
+<% form_for :user_profile, :url => profile_path, :html => {:multipart => true} do |f| %>
+  <p class="ctrl">
+      <%= label_tag(:name, "Business Name") %>
+      <%= f.text_field :name, :class => "w180px", :onkeyup => "charCount(this.id,'name_counter',40)", :onblur => "charCount(this.id,'name_counter',40)" %>
+      <%= content_tag(:span, "#{content_tag(:span, (@user_profile ? 40-@user_profile.name.length : 40), :id => "name_counter")}", :class => "alter-link") %>
+  </p>
+  <p class="ctrl">
+      <%= label_tag(:url, "URL") %>
+      <%= f.text_field :web_url, :class => "w180px" %>
+  </p>
+  <p class="ctrl">
+      <%= label_tag(:address1, "Address Line 1") %>
+      <%= f.text_field :address1, :class => "w180px" %>
+  </p>
+  <p class="ctrl">
+      <%= label_tag(:address2, "Address Line 2") %>
+      <%= f.text_field :address2, :class => "w180px" %>
+  </p>
+  <p class="ctrl">
+      <%= label_tag(:city, "City") %>
+      <%= f.text_field :city, :class => "w180px" %>
+  </p>
+  <p class="ctrl">
+      <%= label_tag(:state, "State") %>
+      <%= f.text_field :state, :class => "w180px" %>
+  </p>
+  <p class="ctrl">
+      <%= label_tag(:zip, "5 Digit Zip") %>
+      <%= f.text_field :zip, :maxLength => 5, :class => "w180px", :onKeyPress => "return keyAllowed(event,'0123456789')" %>
+  </p>
+  <p class="ctrl">
+      <%= label_tag(:phone, "Phone") %>
+      <%= f.text_field :phone, :maxLength => 14, :class => "w180px", :onKeyPress => "return keyAllowed(event,'0123456789.-()')" %>
+  </p>
+  <p class="ctrl">
+      <%= label_tag(:email, "Email") %>
+      <%= f.text_field :email, :class => "w180px" %>
+  </p>
+  <p class="ctrl actions">
+      <span class="button green"><%= f.submit("Go!") %></span>
+      <%= link_to("Cancel", "javascript:history.back();", :class => "alter") if current_user.profile%>
+  </p>
+<% end %>

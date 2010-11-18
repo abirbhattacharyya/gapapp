@@ -1,0 +1,52 @@
+<h1>Hey, your payment info is safe and secure</h1>
+
+<%#= error_messages_for :payment %>
+<% form_for :payment, @payment, :url => payments_path do |f| %>
+  <%= hidden_field_tag :id, @offer.id %>
+  <p class="ctrl">
+      <b>Products</b>
+      <%= label_tag :products, @offer.product_name %>
+  </p>
+  <p class="ctrl">
+      <b>Price</b>
+      <%= label_tag(:price, "$#{number_with_delimiter(@offer.price.ceil)}") %>
+  </p>
+  <p class="ctrl">
+      <label>Name</label>
+      <%= f.text_field :name, :class => "w160px", :onKeyPress => "return keyAllowed(event,'#{("a".."z").to_a * ""}#{("A".."Z").to_a * ""} ')" %>
+  </p>
+  <p class="ctrl">
+      <label>Credit Card#</label>
+      <%= f.text_field :cc_no, :class => "w160px", :onKeyPress => "return keyAllowed(event,'0123456789')" %>
+  </p>
+  <p class="ctrl">
+      <label>Credit Card Expiration?</label>
+      <%= f.select :cc_expiry_m1, ((Date.today.month)...13).collect{|i| [i,i]}, {:selected => @month}, :id => "cc_expiry_m1" %>
+      <%= f.select :cc_expiry_m2, (1...13).collect{|i| [i,i]}, {:selected => @month}, :id => "cc_expiry_m2" %>
+      <%= f.select :cc_expiry_y, ((Date.today.year)...(Date.today.year+7)).collect{|i| [i,i]}, {}, :onchange => "if(this.value==#{Date.today.year}){$('cc_expiry_m1').show();$('cc_expiry_m2').hide();}else{$('cc_expiry_m2').show();$('cc_expiry_m1').hide();}" %>
+      <%#= select_year(Date.today, :start_year => Date.today.year, :end_year => Date.today.year + 20, :field_name => 'birth', :class => "w170px") %>
+  </p>
+  <p class="ctrl">
+      <label>Email</label>
+      <%= f.text_field :email, :class => "w160px" %>
+  </p>
+  <p class="ctrl">
+      <label>Twitter Id</label>
+      <%= f.text_field :screen_name, :class => "w160px" %>
+  </p>
+  <p class="ctrl actions">
+      <span class="button green"><%= f.submit("Pay!") %></span>
+  </p>
+<% end %>
+
+<% javascript_tag do %>
+    <% if @payment %>
+      <% if @payment.cc_expiry_y == Date.today.year %>
+          $('cc_expiry_m2').hide();
+      <% else %>
+          $('cc_expiry_m1').hide();
+      <% end %>
+    <% else %>
+        $('cc_expiry_m2').hide();
+    <% end %>
+<% end %>

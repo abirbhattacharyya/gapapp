@@ -1,0 +1,15 @@
+<%= content_tag(:h1, "Sign in with your twitter account") %>
+
+<div class="sign-in">
+    <p>
+        You need a Twitter account.<br />
+        <%= image_tag('/images/connect-with-twitter.gif', :Size => "151x24", :onClick => "window.location = '#{twitter_login_path}'") %>
+    </p>
+    or
+    <div id="FB_HiddenContainer" style="position:absolute; top:-10000px; width:0px; height:0px;" ></div>
+    <p>
+        You need a Facebook account.<br />
+        <%#= fb_login_button('javascript:facebook_button_onclick();', :length => "long", :class => "fb_login_not_logged_in FB_ElementReady") %>
+        <%= fb_login_button('javascript:fb_login_button_click();', :length => "long", :class => "fb_login_not_logged_in FB_ElementReady") %>
+    </p>
+</div>

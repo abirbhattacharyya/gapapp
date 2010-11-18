@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  offer_id: 1
+  name: MyString
+  cc_no: MyString
+  cc_expiry_m: 1
+  cc_expiry_y: 1
+  email: MyString
+  screen_name: MyString
+
+two:
+  offer_id: 1
+  name: MyString
+  cc_no: MyString
+  cc_expiry_m: 1
+  cc_expiry_y: 1
+  email: MyString
+  screen_name: MyString

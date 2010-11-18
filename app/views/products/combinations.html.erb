@@ -1,0 +1,16 @@
+<h1>Pick 1 from each department to make your wardrobe!</h1>
+<% form_tag combinations_path, :id => "submit_form" do %>
+  <%= hidden_field_tag :id, @wardrobe.id %>
+  <% for product in @products %>
+      <p class="ctrl radio-group">
+          <strong><%= product.department %></strong>
+          <% for product_name in Product.names(product.user_id, product.gender, product.department) %>
+            <%= radio_button_tag "product_#{product.id}", product_name.id %> <%= label_tag(product_name.name, product_name.name) %><br />
+          <% end %>
+      </p>
+      <div class="divider"></div>
+  <% end %>
+  <p class="ctrl actions">
+      <span class="button green"><%= submit_tag("Go!") %></span>
+  </p>
+<% end %>

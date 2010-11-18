@@ -1,0 +1,16 @@
+<% payment = payment_mailer %>
+
+<p>Dear Customer,</p>
+<p>Congratulations on snagging an exclusive wardrobe deal!</p>
+<p>Bring this email or attached PDF to any GAP store and pick up your clothes.</p>
+
+<p>Voucher #=1000<%= payment.id %></p>
+<p class="ctrl"><%= label_tag :products, payment.offer.product_name %></p>
+<p class="ctrl">
+  Total Price=<%= label_tag(:price, "$#{number_with_delimiter(payment.offer.combination.total_reg_price.ceil)}") %>;
+  You Paid=<%= label_tag(:price, "$#{number_with_delimiter(payment.offer.price.ceil)}") %>;
+</p>
+
+<p>
+  Locate a store here: <%= link_to("http://www.gap.com/customerService/storeLocator.do?mlink=5058,1901277,2&clink=1901277", "http://www.gap.com/customerService/storeLocator.do?mlink=5058,1901277,2&clink=1901277")%>
+</p>
