@@ -3,13 +3,13 @@ module ApplicationHelper
   include GoogleVisualization
 
   def oauth_callback
-    "http://dealkat.net/callback"
+    "http://204.236.230.222/callback"
   end
 
   def oauth_consumer
     # The readkey and readsecret below are the values you get during registration
-    OAuth::Consumer.new("Ybe66UvSNauPL80HYCaTdg",
-    "H30qI6NRL0o1MwNnukMyTsbHgwbVsdbeX19Ejo60s",
+    OAuth::Consumer.new("j6TMRlaFQ6fMoGEqhTNag",
+    "IfSnfQu3PUC4ID7OzyZTv3zCRDgjmcVdk4m03oHjEI",
     { :site=>"http://twitter.com" })
   end
 
