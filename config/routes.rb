@@ -1,9 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller => 'users', :action => 'biz'
+  map.root :controller => 'home'
 
   map.twitter_login '/twitter_login', :controller => 'users', :action => 'create'
-#  map.login '/login', :controller => 'users', :action => 'login'
-  #map.biz '/biz', :controller => 'users', :action => 'biz'
+  map.login '/login', :controller => 'users', :action => 'login'
+  map.biz '/biz', :controller => 'users', :action => 'biz'
   map.logout '/logout', :controller => 'users', :action => 'destroy'
 #  map.resources :users, :collection => {:link_user_accounts => :get}
 
