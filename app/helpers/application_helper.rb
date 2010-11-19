@@ -3,7 +3,7 @@ module ApplicationHelper
   include GoogleVisualization
 
   def oauth_callback
-    "http://204.236.230.222/callback"
+    "http://184.73.255.153/callback"
   end
 
   def oauth_consumer
