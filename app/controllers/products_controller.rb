@@ -1,6 +1,3 @@
-require 'pdf/writer'
-require 'csv'
-
 class ProductsController < ApplicationController
   before_filter :check_login, :except => [:capsule, :send_to, :payments]
 

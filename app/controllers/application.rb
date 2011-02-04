@@ -1,11 +1,14 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
+require 'rubygems'
 require 'facebooker'
 require 'open-uri'
 require 'json'
 require 'hpricot'
 require "httparty"
 require "calendar_date_select"
+require 'pdf/writer'
+require 'csv'
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
