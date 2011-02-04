@@ -1,4 +1,4 @@
-#require 'pdf/writer'
+require 'pdf/writer'
 require 'csv'
 
 class ProductsController < ApplicationController
